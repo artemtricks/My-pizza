@@ -1,11 +1,13 @@
 import React from "react";
 
+
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import PizzaBlock from "../components/PizzaBlock";
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
+import Pagination from "../components/Pagination";
 
-function Home({searchValue}) {
+function Home({ searchValue }) {
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [categoryId, setCategoryId] = React.useState(0);
@@ -20,9 +22,9 @@ function Home({searchValue}) {
     const order = sortType.sortProperty.includes("-") ? "asc" : "desc";
     const sortBy = sortType.sortProperty.replace("-", "");
     const category = categoryId > 0 ? `category=${categoryId}` : "";
-    const search = searchValue ? `&search=${searchValue}` : '';
+    const search = searchValue ? `&search=${searchValue}` : "";
     fetch(
-      `https://63f36531fe3b595e2ee0f355.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}${search}`
+      `https://63f36531fe3b595e2ee0f355.mockapi.io/items?page=1&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
     )
       .then((res) => {
         return res.json();
@@ -44,9 +46,11 @@ function Home({searchValue}) {
       sizes={obj.sizes}
       types={obj.types}
     />
-  ))
+  ));
 
-  const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />)
+  const skeletons = [...new Array(6)].map((_, index) => (
+    <Skeleton key={index} />
+  ));
 
   return (
     <div className="container">
@@ -58,11 +62,8 @@ function Home({searchValue}) {
         <Sort value={sortType} onChangeSort={(index) => setSortType(index)} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-        {isLoading
-          ? skeletons
-          : pizzas}
-      </div>
+      <div className="content__items">{isLoading ? skeletons : pizzas}</div>
+      <Pagination />
     </div>
   );
 }
