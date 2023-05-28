@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
 import { Routes, Route } from "react-router-dom";
+import NewPage from "./pages/newpage/newPage";
 
 export const SearchContext = React.createContext();
 
@@ -22,6 +23,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/newpage" element={<NewPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
