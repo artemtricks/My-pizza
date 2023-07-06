@@ -3,14 +3,21 @@ import React from "react";
 import Skeleton from "../components/PizzaBlock/skeleton";
 import PizzaBlock from "../components/PizzaBlock";
 import Categories from "../components/Categories";
-import Sort from "../components/Sort";
+import { Sort, list } from "../components/Sort";
 import Pagination from "../components/Pagination";
 import { SearchContext } from "../App";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { setCategoryId, setCurrentPage } from "../redux/slices/filterSlice";
+import {
+  setCategoryId,
+  setCurrentPage,
+  setFilters,
+} from "../redux/slices/filterSlice";
+import qs from "qs";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const categoryId = useSelector((state) => state.filter.categoryId);
   const sortType = useSelector((state) => state.filter.sort.sortProperty);
@@ -29,23 +36,20 @@ function Home() {
   };
 
   React.useEffect(() => {
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
+      const sort = list.find((obj) => obj.sortProperty === params.sortProperty);
+      dispatch(setFilters({ ...params, sort }));
+    }
+  }, []);
+
+  React.useEffect(() => {
     setIsLoading(true);
 
     const order = sortType.includes("-") ? "asc" : "desc";
     const sortBy = sortType.replace("-", "");
     const category = categoryId > 0 ? `category=${categoryId}` : "";
     const search = searchValue ? `&search=${searchValue}` : "";
-
-    // fetch(
-    //   `https://63f36531fe3b595e2ee0f355.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
-    // )
-    //   .then((res) => {
-    //     return res.json();
-    //   })
-    //   .then((arr) => {
-    //     setItems(arr);
-    //     setIsLoading(false);
-    //   });
 
     axios
       .get(
@@ -58,6 +62,15 @@ function Home() {
 
     window.scroll(0, 0);
   }, [categoryId, sortType, searchValue, currentPage]);
+
+  React.useEffect(() => {
+    const queryString = qs.stringify({
+      sortType,
+      categoryId,
+      currentPage,
+    });
+    navigate(`?${queryString}`);
+  }, [categoryId, searchValue, currentPage]);
 
   const pizzas = items.map((obj) => (
     <PizzaBlock
