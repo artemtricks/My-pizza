@@ -19,6 +19,8 @@ import { useNavigate } from "react-router-dom";
 function Home() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isSearch = React.useRef(false);
+  const isMounted = React.useRef(false);
   const categoryId = useSelector((state) => state.filter.categoryId);
   const sortType = useSelector((state) => state.filter.sort.sortProperty);
   const currentPage = useSelector((state) => state.filter.pageCount);
@@ -35,15 +37,7 @@ function Home() {
     dispatch(setCurrentPage(number));
   };
 
-  React.useEffect(() => {
-    if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
-      const sort = list.find((obj) => obj.sortProperty === params.sortProperty);
-      dispatch(setFilters({ ...params, sort }));
-    }
-  }, []);
-
-  React.useEffect(() => {
+  const fetchPizzas = () => {
     setIsLoading(true);
 
     const order = sortType.includes("-") ? "asc" : "desc";
@@ -59,18 +53,39 @@ function Home() {
         setItems(res.data);
         setIsLoading(false);
       });
-
-    window.scroll(0, 0);
-  }, [categoryId, sortType, searchValue, currentPage]);
+  };
 
   React.useEffect(() => {
-    const queryString = qs.stringify({
-      sortType,
-      categoryId,
-      currentPage,
-    });
-    navigate(`?${queryString}`);
-  }, [categoryId, searchValue, currentPage]);
+    if (isMounted.current) {
+      const queryString = qs.stringify({
+        sortType,
+        categoryId,
+        currentPage,
+      });
+      console.log(queryString, "queryString");
+      navigate(`?${queryString}`);
+    }
+
+    isMounted.current = true;
+  }, [categoryId, sortType, currentPage]);
+
+  React.useEffect(() => {
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
+
+      const sort = list.find((obj) => obj.sortProperty === params.sortProperty);
+      dispatch(setFilters({ ...params, sort }));
+    }
+    isSearch.current = true;
+  }, []);
+
+  React.useEffect(() => {
+    window.scroll(0, 0);
+    isSearch.current = false;
+    if (!isSearch.current) {
+      fetchPizzas();
+    }
+  }, [categoryId, sortType, searchValue, currentPage]);
 
   const pizzas = items.map((obj) => (
     <PizzaBlock
