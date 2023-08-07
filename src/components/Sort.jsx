@@ -29,9 +29,7 @@ export function Sort() {
         setIsVisiblePopup(false);
       }
     };
-
     document.body.addEventListener("click", handleClickOutside);
-
     return () => {
       document.body.removeEventListener("click", handleClickOutside);
     };

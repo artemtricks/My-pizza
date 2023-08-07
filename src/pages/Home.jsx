@@ -62,7 +62,7 @@ function Home() {
         categoryId,
         currentPage,
       });
-      console.log(queryString, "queryString");
+
       navigate(`?${queryString}`);
     }
 
@@ -76,7 +76,6 @@ function Home() {
       const sort = list.find((obj) => obj.sortProperty === params.sortProperty);
       dispatch(setFilters({ ...params, sort }));
     }
-    isSearch.current = true;
   }, []);
 
   React.useEffect(() => {
