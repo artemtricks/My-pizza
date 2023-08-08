@@ -18,11 +18,13 @@ function PizzaBlock({ id, title, price, imageUrl, sizes, types }) {
       title,
       price,
       imageUrl,
-      sizes: activeSize,
+      size: sizes[activeSize],
       types: typesName[activeType],
     };
     dispatch(addItem(item));
   };
+
+  console.log(activeSize, sizes);
 
   return (
     <div className="pizza-block-wrapper">
@@ -45,7 +47,7 @@ function PizzaBlock({ id, title, price, imageUrl, sizes, types }) {
             {sizes.map((size, index) => (
               <li
                 onClick={() => setActiveSize(index)}
-                key={size}
+                key={index}
                 className={activeSize === index ? "active" : ""}
               >
                 {size} см.

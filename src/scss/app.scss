@@ -1,10 +1,9 @@
 @import "./variables";
 @import "./libs/normalize";
-
 @import "./components/all";
 
 body {
-  background-color: $background;
+  background-color: #fefefe;
 }
 
 .wrapper {
@@ -14,11 +13,11 @@ body {
   margin: 50px auto;
   border-radius: 10px;
   max-width: 1400px;
+  box-shadow: 0px 0px 40px 0px rgba(57, 63, 54, 0.1);
 
   @media (max-width: 640px) {
     width: calc(100vw - 40px);
     margin-top: 20px;
-    
   }
 }
 
@@ -28,8 +27,6 @@ body {
   &__title {
     margin: 35px 0;
   }
-
-  
 
   &__items {
     display: grid;
@@ -317,6 +314,7 @@ body {
 
   &--empty {
     margin: 0 auto;
+    margin-top: 20px;
     width: 560px;
     text-align: center;
 
