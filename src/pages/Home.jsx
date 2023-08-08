@@ -76,6 +76,7 @@ function Home() {
       const sort = list.find((obj) => obj.sortProperty === params.sortProperty);
       dispatch(setFilters({ ...params, sort }));
     }
+    isSearch.current = true;
   }, []);
 
   React.useEffect(() => {
@@ -89,6 +90,7 @@ function Home() {
   const pizzas = items.map((obj) => (
     <PizzaBlock
       key={obj.id}
+      id={obj.id}
       title={obj.title}
       price={obj.price}
       imageUrl={obj.imageUrl}
