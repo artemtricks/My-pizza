@@ -24,8 +24,6 @@ function PizzaBlock({ id, title, price, imageUrl, sizes, types }) {
     dispatch(addItem(item));
   };
 
-  console.log(activeSize, sizes);
-
   return (
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
