@@ -1,16 +1,17 @@
 import React from "react";
 import debounce from "lodash.debounce";
-import { SearchContext } from "../../App";
 import styles from "./Search.module.scss";
+import { useDispatch } from "react-redux";
+import { setSearchValue } from "../../redux/slices/filterSlice";
 
 function Search() {
-  const { setSearchValue } = React.useContext(SearchContext);
+  const dispatch = useDispatch();
   const [value, setValue] = React.useState("");
 
   const inputRef = React.useRef();
 
   const onClickClear = () => {
-    setSearchValue("");
+    dispatch(setSearchValue(""));
     setValue("");
     inputRef.current.focus();
   };
@@ -19,7 +20,7 @@ function Search() {
     //колбэк чтобы не было перерендера при каждом вводе в инпут
     debounce((str) => {
       // отложенное выполнение сетСерчВалуе 1000 м.с
-      setSearchValue(str);
+      dispatch(setSearchValue(str));
     }, 1000),
     []
   );
