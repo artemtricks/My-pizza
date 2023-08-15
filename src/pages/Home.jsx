@@ -4,7 +4,6 @@ import PizzaBlock from "../components/PizzaBlock";
 import Categories from "../components/Categories";
 import { Sort, list } from "../components/Sort";
 import Pagination from "../components/Pagination";
-import { SearchContext } from "../App";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectFilter,
@@ -24,7 +23,6 @@ const Home = () => {
   const isMounted = React.useRef(false);
   const { pageCurrent, categoryId, sort, searchValue } =
     useSelector(selectFilter);
-  console.log(searchValue);
 
   const { items, status } = useSelector(selectPizzaData);
 
