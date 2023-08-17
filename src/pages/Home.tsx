@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchPizzas, selectPizzaData } from "../redux/slices/pizzasSlice";
 import NotRenderPizza from "../components/NotRenderPizza";
 
-const Home = () => {
+const Home: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSearch = React.useRef(false);
@@ -26,12 +26,12 @@ const Home = () => {
 
   const { items, status } = useSelector(selectPizzaData);
 
-  const onChangeCategory = (id) => {
+  const onChangeCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
 
-  const onChangePage = (number) => {
-    dispatch(setCurrentPage(number));
+  const onChangePage = (page: number) => {
+    dispatch(setCurrentPage(page));
   };
 
   const getPizzas = async () => {
@@ -40,7 +40,16 @@ const Home = () => {
     const category = categoryId > 0 ? `category=${categoryId}` : "";
     const search = searchValue ? `&search=${searchValue}` : "";
 
-    dispatch(fetchPizzas({ order, sortBy, category, search, pageCurrent }));
+    dispatch(
+      //@ts-ignore
+      fetchPizzas({
+        order,
+        sortBy,
+        category,
+        search,
+        pageCurrent,
+      })
+    );
   };
 
   React.useEffect(() => {
@@ -74,17 +83,7 @@ const Home = () => {
     }
   }, [categoryId, sort.sortProperty, searchValue, pageCurrent]);
 
-  const pizzas = items.map((obj) => (
-    <PizzaBlock
-      key={obj.id}
-      id={obj.id}
-      title={obj.title}
-      price={obj.price}
-      imageUrl={obj.imageUrl}
-      sizes={obj.sizes}
-      types={obj.types}
-    />
-  ));
+  const pizzas = items.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />);
 
   const skeletons = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
@@ -107,7 +106,7 @@ const Home = () => {
           <div className="content__items">
             {status === "loading" ? skeletons : pizzas}
           </div>
-          <Pagination onChangePage={onChangePage} />
+          <Pagination onChangePage={onChangePage} pageCurrent={pageCurrent} />
         </>
       )}
     </div>

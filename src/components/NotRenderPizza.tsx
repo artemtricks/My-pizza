@@ -1,6 +1,6 @@
 import React from "react";
 
-const NotRenderPizza = () => {
+const NotRenderPizza: React.FC = () => {
   return (
     <div className="content__error_pizza">
       <h2>
