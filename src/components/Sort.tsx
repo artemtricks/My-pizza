@@ -17,7 +17,7 @@ export const list: SortItem[] = [
   { name: "алфавиту(ASK)", sortProperty: "-title" },
 ];
 
-export function Sort() {
+const Sort: React.FC = () => {
   const [isVisiblePopup, setIsVisiblePopup] = React.useState(false);
 
   const dispatch = useDispatch();
@@ -30,8 +30,8 @@ export function Sort() {
   };
 
   React.useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      if (!event.composedPath().includes(sortRef.current)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
         setIsVisiblePopup(false);
       }
     };
@@ -80,4 +80,6 @@ export function Sort() {
       )}
     </div>
   );
-}
+};
+
+export default Sort;

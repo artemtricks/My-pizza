@@ -2,7 +2,7 @@ import React from "react";
 import Skeleton from "../components/PizzaBlock/skeleton";
 import PizzaBlock from "../components/PizzaBlock";
 import Categories from "../components/Categories";
-import { Sort, list } from "../components/Sort";
+import Sort, { list } from "../components/Sort";
 import Pagination from "../components/Pagination";
 import { useSelector, useDispatch } from "react-redux";
 import {
