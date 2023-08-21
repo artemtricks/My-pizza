@@ -1,5 +1,10 @@
 import React from "react";
-import { addItem, minusItem, removeItem } from "../redux/slices/cartSlice";
+import {
+  CartItem,
+  addItem,
+  minusItem,
+  removeItem,
+} from "../redux/slices/cartSlice";
 import { useDispatch } from "react-redux";
 
 type CartItemProps = {
@@ -12,7 +17,7 @@ type CartItemProps = {
   types: string;
 };
 
-const CartItem: React.FC<CartItemProps> = ({
+const CartItemBlock: React.FC<CartItemProps> = ({
   id,
   title,
   price,
@@ -26,7 +31,7 @@ const CartItem: React.FC<CartItemProps> = ({
     dispatch(
       addItem({
         id,
-      })
+      } as CartItem)
     );
   };
 
@@ -126,4 +131,4 @@ const CartItem: React.FC<CartItemProps> = ({
   );
 };
 
-export default CartItem;
+export default CartItemBlock;

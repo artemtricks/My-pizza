@@ -9,7 +9,7 @@ const Cart: React.FC = () => {
   const dispatch = useDispatch();
   const { items, totalPrice } = useSelector(selectCart);
   const onClearCart = () => {
-    if (window.confirm("Очистить корзину?")) dispatch(clearItems(""));
+    if (window.confirm("Очистить корзину?")) dispatch(clearItems());
   };
 
   const totalCountPrice = items.reduce(
