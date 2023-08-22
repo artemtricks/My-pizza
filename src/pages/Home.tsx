@@ -8,16 +8,17 @@ import { useSelector } from "react-redux";
 import { useAppDispatch } from "../redux/store";
 
 import {
-  selectFilter,
   setCategoryId,
   setCurrentPage,
   setFilters,
-} from "../redux/slices/filterSlice";
+} from "../redux/slices/filter/slice";
+import { selectFilter } from "../redux/slices/filter/selectors";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
-import { fetchPizzas, selectPizzaData } from "../redux/slices/pizzasSlice";
+import { fetchPizzas } from "../redux/slices/pizza/slice";
+import { selectPizzaData } from "../redux/slices/pizza/selectors";
 import NotRenderPizza from "../components/NotRenderPizza";
-import { SearchPizzaParams } from "../redux/slices/pizzasSlice";
+import { SearchPizzaParams } from "../redux/slices/pizza/types";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
