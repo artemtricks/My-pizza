@@ -6,6 +6,7 @@ import Sort, { list } from "../components/Sort";
 import Pagination from "../components/Pagination";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../redux/store";
+
 import {
   selectFilter,
   setCategoryId,
@@ -28,9 +29,9 @@ const Home: React.FC = () => {
 
   const { items, status } = useSelector(selectPizzaData);
 
-  const onChangeCategory = (id: number) => {
+  const onChangeCategory = React.useCallback((id: number) => {
     dispatch(setCategoryId(id));
-  };
+  }, []);
 
   const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
@@ -114,7 +115,7 @@ const Home: React.FC = () => {
               value={categoryId}
               onChangeCategory={onChangeCategory}
             />
-            <Sort />
+            <Sort value={sort} />
           </div>
           <h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
