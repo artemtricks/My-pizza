@@ -123,7 +123,9 @@ const Home: React.FC = () => {
           <div className="content__items">
             {status === "loading" ? skeletons : pizzas}
           </div>
-          <Pagination onChangePage={onChangePage} pageCurrent={pageCurrent} />
+          {categoryId === 0 && (
+            <Pagination onChangePage={onChangePage} pageCurrent={pageCurrent} />
+          )}
         </>
       )}
     </div>

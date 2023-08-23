@@ -5,14 +5,7 @@ type CategoriesProps = {
   onChangeCategory: (value: number) => void;
 };
 
-const categories = [
-  "Все",
-  "Мясные",
-  "Вегетарианская",
-  "Гриль",
-  "Острые",
-  "Закрытые",
-];
+const categories = ["Все", "Мясные", "Вегетарианская", "Гриль", "Острые"];
 
 export const Categories: React.FC<CategoriesProps> = React.memo(
   ({ value, onChangeCategory }) => {
