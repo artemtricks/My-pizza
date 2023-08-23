@@ -15,5 +15,3 @@ export const NotFoundBlock: React.FC = () => {
     </div>
   );
 };
-
-export default NotFoundBlock;

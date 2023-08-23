@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface Pizza {
   imageUrl: string;
@@ -29,7 +30,7 @@ const FullPizza: React.FC = () => {
   }, []);
 
   if (!pizza) {
-    return <div>Загрузка...</div>;
+    return <div className="container">Загрузка...</div>;
   }
 
   return (
@@ -37,6 +38,9 @@ const FullPizza: React.FC = () => {
       <img src={pizza.imageUrl} alt="" />
       <h2>{pizza.title}</h2>
       <h4>{pizza.price} P</h4>
+      <Link to="/" className="button button--black" style={{ marginTop: 20 }}>
+        <span>Вернуться назад</span>
+      </Link>
     </div>
   );
 };

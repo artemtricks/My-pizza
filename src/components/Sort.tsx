@@ -21,7 +21,7 @@ export const list: SortItem[] = [
   { name: "алфавиту(ASK)", sortProperty: SortPropertyEnum.TITLE_ASK },
 ];
 
-const Sort: React.FC<SortProps> = React.memo(({ value }) => {
+export const Sort: React.FC<SortProps> = React.memo(({ value }) => {
   const [isVisiblePopup, setIsVisiblePopup] = React.useState(false);
 
   const dispatch = useDispatch();
@@ -85,5 +85,3 @@ const Sort: React.FC<SortProps> = React.memo(({ value }) => {
     </div>
   );
 });
-
-export default Sort;

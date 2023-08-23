@@ -1,12 +1,14 @@
 import React from "react";
-import Skeleton from "../components/PizzaBlock/skeleton";
-import PizzaBlock from "../components/PizzaBlock";
-import Categories from "../components/Categories";
-import Sort, { list } from "../components/Sort";
-import Pagination from "../components/Pagination";
+import {
+  Skeleton,
+  PizzaBlock,
+  Categories,
+  Sort,
+  Pagination,
+  NotRenderPizza,
+} from "../components";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../redux/store";
-
 import {
   setCategoryId,
   setCurrentPage,
@@ -17,7 +19,6 @@ import qs from "qs";
 import { useNavigate } from "react-router-dom";
 import { fetchPizzas } from "../redux/slices/pizza/slice";
 import { selectPizzaData } from "../redux/slices/pizza/selectors";
-import NotRenderPizza from "../components/NotRenderPizza";
 import { SearchPizzaParams } from "../redux/slices/pizza/types";
 
 const Home: React.FC = () => {

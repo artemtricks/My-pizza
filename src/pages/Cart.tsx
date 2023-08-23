@@ -1,10 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import CartItem from "../components/CartItem";
+import { CartItemBlock, CartEmpty } from "../components";
 import { useSelector, useDispatch } from "react-redux";
 import { clearItems } from "../redux/slices/cart/slice";
 import { selectCart } from "../redux/slices/cart/selectors";
-import CartEmpty from "../components/CartEmpty";
 
 const Cart: React.FC = () => {
   const dispatch = useDispatch();
@@ -17,9 +16,10 @@ const Cart: React.FC = () => {
     (sum: number, item: any) => sum + item.count,
     0
   );
-  if (!totalPrice) {
+  if (!totalCountPrice) {
     return <CartEmpty />;
   }
+  console.log(totalPrice, "totalPrice");
 
   return (
     <div className="container container--cart">
@@ -100,7 +100,7 @@ const Cart: React.FC = () => {
         </div>
         <div className="content__items">
           {items.map((item: any) => {
-            return <CartItem key={item.id} {...item} />;
+            return <CartItemBlock key={item.id} {...item} />;
           })}
         </div>
         <div className="cart__bottom">
@@ -111,7 +111,7 @@ const Cart: React.FC = () => {
             </span>
             <span>
               {" "}
-              Сумма заказа: <b>{totalPrice} ₽</b>{" "}
+              Сумма заказа: <b>{totalCountPrice ? totalPrice : 0} ₽</b>{" "}
             </span>
           </div>
           <div className="cart__bottom-buttons">

@@ -1,6 +1,6 @@
 import React from "react";
 
-const NotRenderPizza: React.FC = () => {
+export const NotRenderPizza: React.FC = () => {
   return (
     <div className="content__error_pizza">
       <h2>
@@ -13,5 +13,3 @@ const NotRenderPizza: React.FC = () => {
     </div>
   );
 };
-
-export default NotRenderPizza;
