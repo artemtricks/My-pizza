@@ -18,7 +18,6 @@ export const Header = () => {
     if (isMounted.current) {
       const json = JSON.stringify(items);
       window.localStorage.setItem("cart", json);
-      console.log(json);
     }
 
     isMounted.current = true;
