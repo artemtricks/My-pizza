@@ -6,7 +6,9 @@ import {
   Sort,
   Pagination,
   NotRenderPizza,
+  list,
 } from "../components";
+
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../redux/store";
 import {
@@ -56,41 +58,41 @@ const Home: React.FC = () => {
     );
   };
 
-  // React.useEffect(() => {
-  //   if (isMounted.current) {
-  //     const queryString = qs.stringify({
-  //       categoryId,
-  //       pageCurrent,
-  //     });
+  React.useEffect(() => {
+    if (isMounted.current) {
+      const queryString = qs.stringify({
+        categoryId,
+        pageCurrent,
+      });
 
-  //     navigate(`?${queryString}`);
-  //   }
+      navigate(`?${queryString}`);
+    }
 
-  //   if (!window.location.search) {
-  //     dispatch(fetchPizzas({} as SearchPizzaParams));
-  //   }
-  // }, [categoryId, sort.sortProperty, pageCurrent]);
+    if (!window.location.search) {
+      dispatch(fetchPizzas({} as SearchPizzaParams));
+    }
+  }, [categoryId, sort.sortProperty, pageCurrent]);
 
-  // React.useEffect(() => {
-  //   if (window.location.search) {
-  //     const params = qs.parse(
-  //       window.location.search.substring(1)
-  //     ) as unknown as SearchPizzaParams;
+  React.useEffect(() => {
+    if (window.location.search) {
+      const params = qs.parse(
+        window.location.search.substring(1)
+      ) as unknown as SearchPizzaParams;
 
-  //     const sort = list.find((obj) => obj.sortProperty === params.sortBy);
+      const sort = list.find((obj) => obj.sortProperty === params.sortBy);
 
-  //     dispatch(
-  //       setFilters({
-  //         searchValue: params.search,
-  //         categoryId: Number(params.category),
-  //         pageCurrent: Number(params.pageCurrent),
-  //         sort: sort || list[0],
-  //       })
-  //     );
-  //   }
-  //   isSearch.current = true;
-  //   //isMounted.current = true;
-  // }, []);
+      dispatch(
+        setFilters({
+          searchValue: params.search,
+          categoryId: Number(params.category),
+          pageCurrent: Number(params.pageCurrent),
+          sort: sort || list[0],
+        })
+      );
+    }
+    isSearch.current = true;
+    //isMounted.current = true;
+  }, []);
 
   React.useEffect(() => {
     window.scroll(0, 0);
