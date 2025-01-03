@@ -6,9 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [17.x]
+        node-version: [20.x]
     steps:
-      - uses: actions/checkout@v3
+      - uses: action/checkout@v3
       - name: Starting Node.js ${{matrix.node-version}}
         uses: action/setup-node@v3
         with:
