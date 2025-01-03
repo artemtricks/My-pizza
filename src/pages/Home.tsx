@@ -28,14 +28,19 @@ const Home: React.FC = () => {
   const dispatch = useAppDispatch();
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
+
+  console.log({ isMounted });
   const { pageCurrent, categoryId, sort, searchValue } =
     useSelector(selectFilter);
 
   const { items, status } = useSelector(selectPizzaData);
 
-  const onChangeCategory = React.useCallback((id: number) => {
-    dispatch(setCategoryId(id));
-  }, []);
+  const onChangeCategory = React.useCallback(
+    (id: number) => {
+      dispatch(setCategoryId(id));
+    },
+    [dispatch]
+  );
 
   const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
@@ -91,7 +96,7 @@ const Home: React.FC = () => {
       );
     }
     isSearch.current = true;
-    //isMounted.current = true;
+    isMounted.current = true;
   }, []);
 
   React.useEffect(() => {
