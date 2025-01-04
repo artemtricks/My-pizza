@@ -34,7 +34,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test:unit": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -44,7 +44,7 @@
     ],
     "rules": {
       "react-hooks/exhaustive-deps": "off"
-  }
+    }
   },
   "browserslist": {
     "production": [
