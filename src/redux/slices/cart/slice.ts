@@ -16,12 +16,7 @@ const cartSlice = createSlice({
   reducers: {
     addItem(state, action: PayloadAction<CartItem>) {
       console.log(action, "action");
-      const findItems = state.items.find(
-        (obj) =>
-          obj.id === action.payload.id &&
-          obj.size === action.payload.size &&
-          obj.types === action.payload.types
-      );
+      const findItems = state.items.find((obj) => obj.id === action.payload.id);
       if (findItems) {
         findItems.count++;
       } else {
