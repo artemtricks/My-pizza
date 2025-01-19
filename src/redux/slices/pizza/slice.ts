@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
 import { PizzaItem, SearchPizzaParams, PizzaSliceState } from "./types";
 import apiClient from "../../../api";
 
