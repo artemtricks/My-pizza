@@ -1,7 +1,7 @@
-import axios from "axios";
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import apiClient from "../api";
 
 interface Pizza {
   imageUrl: string;
@@ -13,19 +13,16 @@ const FullPizza: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [pizza, setPizza] = React.useState<Pizza>();
-
-  React.useEffect(() => {
-    async function fetchPizza() {
-      try {
-        const { data } = await axios.get(
-          "https://63f36531fe3b595e2ee0f355.mockapi.io/items/" + id
-        );
-        setPizza(data);
-      } catch (error) {
-        alert(`Не удалось получить пиццу`);
-        navigate("/");
-      }
+  async function fetchPizza() {
+    try {
+      const { data } = await apiClient.get(`/items/${id}`);
+      setPizza(data);
+    } catch (error) {
+      alert(`Не удалось получить пиццу`);
+      navigate("/");
     }
+  }
+  React.useEffect(() => {
     fetchPizza();
   }, [id, navigate]);
 
