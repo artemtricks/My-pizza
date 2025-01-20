@@ -27,7 +27,7 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > private_key.pem
           chmod 600 private_key.pem
 
-          ssh -i private_key.pem root@5.35.5.131 "
+          ssh -o StrictHostKeyChecking=no -i private_key.pem root@5.35.5.131 "
             docker stop your-app-container || true &&
             docker rm your-app-container || true &&
             docker run -d --name your-app-container -p 80:80 my-pizza
