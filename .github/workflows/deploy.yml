@@ -17,7 +17,7 @@ jobs:
       # 2. Сборка Docker образа
       - name: Build Docker image
         run: |
-          docker build -t My-pizza .
+          docker build -t my-pizza .
 
       # 3. Деплой на сервер
       - name: Deploy to server
@@ -30,5 +30,5 @@ jobs:
           ssh -i private_key.pem root@5.35.5.131 "
             docker stop your-app-container || true &&
             docker rm your-app-container || true &&
-            docker run -d --name your-app-container -p 80:80 My-pizza
+            docker run -d --name your-app-container -p 80:80 my-pizza
           "
