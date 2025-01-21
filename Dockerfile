@@ -1,29 +1,31 @@
-# Используем официальный Node.js образ как базовый
+# Stage 1: Build the React app
 FROM node:16 AS build
 
-# Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
 
-# Копируем package.json и package-lock.json для установки зависимостей
+# Копируем package.json и package-lock.json
 COPY package*.json ./
 
 # Устанавливаем зависимости
 RUN npm install --legacy-peer-deps
 
-# Копируем все остальные файлы проекта
+# Копируем исходный код и собираем проект
 COPY . .
 
-# Собираем проект
+# Собираем проект для продакшн среды
 RUN npm run build
 
-# Используем образ nginx для финальной стадии
+# Stage 2: Настройка Nginx для обслуживания сборки
 FROM nginx:alpine
 
-# Копируем собранные файлы из предыдущего этапа в директорию, где Nginx будет их обслуживать
+# Копируем собранные файлы из предыдущего этапа в директорию Nginx
 COPY --from=build /app/build /usr/share/nginx/html
 
-# Открываем порт 80
+# Настроим Nginx для правильной работы с SPA (правильная маршрутизация)
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Открываем порт 80 для доступа к приложению
 EXPOSE 80
 
-# Стартуем Nginx
+# Запускаем Nginx в режиме фона
 CMD ["nginx", "-g", "daemon off;"]
