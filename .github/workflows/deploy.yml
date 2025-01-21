@@ -43,6 +43,6 @@ jobs:
           port: 22
           script: |
             docker pull artemtricks/yourimage:${{ github.sha }}
-            docker stop your-container-name || true
-            docker rm your-container-name || true
+            docker stop container-name || true
+            docker rm container-name || true
             docker run -d --name container-name -p 80:80 artemtricks/yourimage:${{ github.sha }}
